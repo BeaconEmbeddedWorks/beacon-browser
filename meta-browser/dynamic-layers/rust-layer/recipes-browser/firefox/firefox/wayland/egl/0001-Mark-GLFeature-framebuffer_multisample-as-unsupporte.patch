@@ -1,0 +1,20 @@
+diff --git a/gfx/gl/GLContext.cpp b/gfx/gl/GLContext.cpp
+--- a/gfx/gl/GLContext.cpp
++++ b/gfx/gl/GLContext.cpp
+@@ -711,6 +711,16 @@ bool GLContext::InitImpl() {
+       MarkUnsupported(GLFeature::framebuffer_multisample);
+     }
+ 
++#ifdef MOZ_WAYLAND
++    if (Vendor() == GLVendor::Imagination &&
++        Renderer() == GLRenderer::SGX544MP) {
++      // PowerVR SGX544MP's EGL does not have valid
++      // glRenderbufferStorageMultisampleANGLE implementation, which breaks
++      // WebGL.
++      MarkUnsupported(GLFeature::framebuffer_multisample);
++    }
++#endif
++
+     const auto versionStr = (const char*)fGetString(LOCAL_GL_VERSION);
+     if (strstr(versionStr, "Mesa")) {
+       // DrawElementsInstanced hangs the driver.

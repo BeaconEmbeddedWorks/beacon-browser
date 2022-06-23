@@ -1,0 +1,25 @@
+From 188291c37b2c79ed036b9e0760c0ea3293218bc8 Mon Sep 17 00:00:00 2001
+From: Charles Stevens <CStevens@beaconembedded.com>
+Date: Mon, 30 May 2022 14:22:58 +0000
+Subject: [PATCH] Use correct option for the wayland_scanner
+
+---
+ third_party/wayland/wayland_scanner_wrapper.py | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/third_party/wayland/wayland_scanner_wrapper.py b/third_party/wayland/wayland_scanner_wrapper.py
+index 5c0a11fbc..78a8cb2f0 100755
+--- a/third_party/wayland/wayland_scanner_wrapper.py
++++ b/third_party/wayland/wayland_scanner_wrapper.py
+@@ -37,7 +37,7 @@ def main(argv):
+     protocol_path = os.path.join(src_root, protocol)
+     protocol_without_extension = protocol.rsplit(".", 1)[0]
+     out_base_name = os.path.join(root_gen_dir, protocol_without_extension)
+-    generate_code(cmd, "private-code", protocol_path,
++    generate_code(cmd, "code", protocol_path,
+                   out_base_name + "-protocol.c")
+     generate_code(cmd, "client-header", protocol_path,
+                   out_base_name + "-client-protocol.h")
+-- 
+2.17.1
+
